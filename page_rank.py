@@ -18,10 +18,10 @@ class PRIterator:
             if len(self.graph.neighbors(node)) == 0:
                 for node2 in self.graph.nodes():
                     digraph.add_edge(self.graph, (node, node2))
-
+        print '------------------'
         nodes = self.graph.nodes()
         graph_size = len(nodes)
-
+        print graph_size
         if graph_size == 0:
             return {}
         page_rank = dict.fromkeys(nodes, 1.0 / graph_size)  # 给每个节点赋予初始的PR值
@@ -29,6 +29,7 @@ class PRIterator:
 
         flag = False
         for i in range(self.max_iterations):
+            print("This is NO.%s iteration" % (i + 1))
             change = 0
             for node in nodes:
                 rank = 0
@@ -37,10 +38,6 @@ class PRIterator:
                 rank += damping_value
                 change += abs(page_rank[node] - rank)  # 绝对值
                 page_rank[node] = rank
-
-            print("This is NO.%s iteration" % (i + 1))
-            print(page_rank)
-
             if change < self.min_delta:
                 flag = True
                 break
@@ -64,21 +61,25 @@ def loadDataSet(dataFileName):
             lineArr = line.strip().split()  # 0	11342
             data_nodes.append(lineArr[0])
             data_nodes.append(lineArr[1])
-            #data_nodes_list.append(lineArr[0],lineArr[1])
+            str = (lineArr[0], lineArr[1])
+            data_nodes_list.append(str)
     data_node = {}.fromkeys(data_nodes).keys()
     dg.add_nodes(data_node)
     print "-----add_edge---------"
-    for line in fr:
-        if "#" not in line.lower():
-            lineArr = line.strip().split()  # 0	11342
-            dg.add_edge((lineArr[0], lineArr[1]))
+    print len(data_nodes_list)
+    for line in data_nodes_list:
+        print line
+        dg.add_edge(line)
     return dg
 
 
 if __name__ == '__main__':
+    print "--start----------------------"
     dg = loadDataSet("web-Google.txt")
-
+    print "--down---loadDataSet---------"
     pr = PRIterator(dg)
+    print "--down---PRMapReduce---------"
+
     page_ranks = pr.page_rank()
     print "-----PageRank---------"
     #  排序PageRank
@@ -86,4 +87,4 @@ if __name__ == '__main__':
     print dict[0]
     print dict[1]
     print dict[2]
-    #print("The final page rank is\n", page_ranks)
+    # print("The final page rank is\n", page_ranks)
