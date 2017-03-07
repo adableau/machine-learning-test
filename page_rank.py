@@ -14,10 +14,10 @@ class PRIterator:
 
     def page_rank(self):
         #  先将图中没有出链的节点改为对所有节点都有出链
-        for node in self.graph.nodes():
-            if len(self.graph.neighbors(node)) == 0:
-                for node2 in self.graph.nodes():
-                    digraph.add_edge(self.graph, (node, node2))
+        #for node in self.graph.nodes():
+        #    if len(self.graph.neighbors(node)) == 0:
+        #        for node2 in self.graph.nodes():
+        #           digraph.add_edge(self.graph, (node, node2))
         print '------------------'
         nodes = self.graph.nodes()
         graph_size = len(nodes)
