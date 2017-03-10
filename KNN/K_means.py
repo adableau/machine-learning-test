@@ -1,4 +1,4 @@
-# coding=gb18030
+# coding=utf-8
 # python edition: Python3.4.1,2014,9,24
 from collections import defaultdict
 from random import uniform
@@ -118,7 +118,7 @@ def k_means(dataset, k):
         count = count + 1
     write_results(listResult, dataset, k)
     for kind in range(k):
-        print "µÚ%dÀàÊı¾İÓĞ:" % (kind + 1)
+        print "ç¬¬%dç±»æ•°æ®æœ‰:" % (kind + 1)
         count = 0
         for j in listResult[kind]:
             count = count + 1
